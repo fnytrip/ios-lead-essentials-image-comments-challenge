@@ -45,16 +45,18 @@ class ImageCommentsMapperTests: XCTestCase {
 			}
 
 			struct Author: Decodable {
-				let userName: String
+				let username: String
 			}
 
 			var comments: [ImageComment] {
-				return items.map { ImageComment(id: $0.id, message: $0.message, createdAt: $0.created_at, userName: $0.author.userName) }
+				return items.map { ImageComment(id: $0.id, message: $0.message, createdAt: $0.created_at, userName: $0.author.username) }
 			}
 		}
 
 		static func map(_ data: Data, from response: HTTPURLResponse) throws -> [ImageComment] {
-			guard response.statusCode == 200, let root = try? JSONDecoder().decode(Root.self, from: data) else {
+			let decoder = JSONDecoder()
+			decoder.dateDecodingStrategy = .iso8601
+			guard response.statusCode == 200, let root = try? decoder.decode(Root.self, from: data) else {
 				throw NSError(domain: "any domain", code: 0, userInfo: nil)
 			}
 
@@ -62,10 +64,12 @@ class ImageCommentsMapperTests: XCTestCase {
 		}
 	}
 
-	func test_map_deliversItemsOn200HTTPResponseWithJSONItems() throws {
-		let item1 = makeItem(id: UUID(), message: "a message", createdAt: (date: Date(timeIntervalSince1970: 20000000), iso8601String: "2020-01-01T12:00:00+00:00"), userName: "a user")
+	// ("2020-05-31T02:41:40-0700", Date(timeIntervalSince1970: 1590918100)),
 
-		let item2 = makeItem(id: UUID(), message: "another message", createdAt: (date: Date(timeIntervalSince1970: 20000001), iso8601String: "2020-01-02T12:00:00+00:00"), userName: "another user")
+	func test_map_deliversItemsOn200HTTPResponseWithJSONItems() throws {
+		let item1 = makeItem(id: UUID(), message: "a message", createdAt: (date: Date(timeIntervalSince1970: 1622429594), iso8601String: "2021-05-31T02:53:14+00:00"), userName: "a user")
+
+		let item2 = makeItem(id: UUID(), message: "another message", createdAt: (date: Date(timeIntervalSince1970: 1590918100), iso8601String: "2020-05-31T02:41:40-0700"), userName: "another user")
 
 		let json = makeItemsJSON([item1.json, item2.json])
 
@@ -92,11 +96,13 @@ class ImageCommentsMapperTests: XCTestCase {
 	private func makeItem(id: UUID, message: String, createdAt: (date: Date, iso8601String: String), userName: String) -> (model: ImageComment, json: [String: Any]) {
 		let item = ImageComment(id: id, message: message, createdAt: createdAt.date, userName: userName)
 
-		let json = [
+		let json: [String: Any] = [
 			"id": id.uuidString,
 			"message": message,
-			"createdAt": createdAt.iso8601String,
-			"userName": userName
+			"created_at": createdAt.iso8601String,
+			"author": [
+				"username": userName
+			]
 		]
 
 		return (item, json)
