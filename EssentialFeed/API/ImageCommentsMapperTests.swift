@@ -63,7 +63,7 @@ class ImageCommentsMapperTests: XCTestCase {
 		static func map(_ data: Data, from response: HTTPURLResponse) throws -> [ImageComment] {
 			let decoder = JSONDecoder()
 			decoder.dateDecodingStrategy = .iso8601
-			guard response.statusCode == 200, let root = try? decoder.decode(Root.self, from: data) else {
+			guard (200 ... 299).contains(response.statusCode), let root = try? decoder.decode(Root.self, from: data) else {
 				throw Error.invalidData
 			}
 
@@ -71,18 +71,17 @@ class ImageCommentsMapperTests: XCTestCase {
 		}
 	}
 
-	// ("2020-05-31T02:41:40-0700", Date(timeIntervalSince1970: 1590918100)),
-
-	func test_map_deliversItemsOn200HTTPResponseWithJSONItems() throws {
+	func test_map_deliversItemsOn2XXHTTPResponseWithJSONItems() throws {
 		let item1 = makeItem(id: UUID(), message: "a message", createdAt: (date: Date(timeIntervalSince1970: 1622429594), iso8601String: "2021-05-31T02:53:14+00:00"), userName: "a user")
 
 		let item2 = makeItem(id: UUID(), message: "another message", createdAt: (date: Date(timeIntervalSince1970: 1590918100), iso8601String: "2020-05-31T02:41:40-0700"), userName: "another user")
 
 		let json = makeItemsJSON([item1.json, item2.json])
-
-		let result = try ImageCommentsMapper.map(json, from: HTTPURLResponse(statusCode: 200))
-
-		XCTAssertEqual(result, [item1.model, item2.model])
+		let sampleCodes = [200, 201, 250, 299]
+		for code in sampleCodes {
+			let result = try ImageCommentsMapper.map(json, from: HTTPURLResponse(statusCode: code))
+			XCTAssertEqual(result, [item1.model, item2.model])
+		}
 	}
 
 	// MARK: - Helpers
