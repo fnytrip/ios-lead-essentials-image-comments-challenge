@@ -17,23 +17,29 @@ class ImageCommentsMapperTests: XCTestCase {
 		}
 	}
 
-	func test_map_throwsErrorOn200HTTPResponseWithInvalidJSON() {
+	func test_map_throwsErrorOn2XXHTTPResponseWithInvalidJSON() {
 		let invalidJSON = Data("invalid json".utf8)
+		let sampleCodes = [200, 201, 250, 299]
 
-		do {
-			let _ = try ImageCommentsMapper.map(invalidJSON, from: HTTPURLResponse(statusCode: 200))
-		} catch {
-			let error = error as? ImageCommentsMapper.Error
-			XCTAssertEqual(error, .invalidData)
+		for code in sampleCodes {
+			do {
+				let _ = try ImageCommentsMapper.map(invalidJSON, from: HTTPURLResponse(statusCode: code))
+			} catch {
+				let error = error as? ImageCommentsMapper.Error
+				XCTAssertEqual(error, .invalidData)
+			}
 		}
 	}
 
-	func test_map_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() throws {
+	func test_map_deliversNoItemsOn2XXHTTPResponseWithEmptyJSONList() throws {
 		let emptyListJSON = makeItemsJSON([])
 
-		let result = try ImageCommentsMapper.map(emptyListJSON, from: HTTPURLResponse(statusCode: 200))
+		let sampleCodes = [200, 201, 250, 299]
+		for code in sampleCodes {
+			let result = try ImageCommentsMapper.map(emptyListJSON, from: HTTPURLResponse(statusCode: code))
 
-		XCTAssertEqual(result, [])
+			XCTAssertEqual(result, [])
+		}
 	}
 
 	func test_map_deliversItemsOn2XXHTTPResponseWithJSONItems() throws {
