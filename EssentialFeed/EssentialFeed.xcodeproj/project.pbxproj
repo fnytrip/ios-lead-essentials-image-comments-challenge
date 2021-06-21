@@ -103,6 +103,7 @@
 		08F8822D236499B200CAEE16 /* FeedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F8822C236499B200CAEE16 /* FeedCache.swift */; };
 		C762645F2680002F00D4E763 /* ImageCommentsMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C762645E2680002F00D4E763 /* ImageCommentsMapperTests.swift */; };
 		C7626462268016D500D4E763 /* ImageComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7626461268016D500D4E763 /* ImageComment.swift */; };
+		C76264642680181B00D4E763 /* ImageCommentsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76264632680181B00D4E763 /* ImageCommentsMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -228,6 +229,7 @@
 		08FC5AA922D5F47900148E12 /* FeedImageDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataLoader.swift; sourceTree = "<group>"; };
 		C762645E2680002F00D4E763 /* ImageCommentsMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCommentsMapperTests.swift; path = API/ImageCommentsMapperTests.swift; sourceTree = SOURCE_ROOT; };
 		C7626461268016D500D4E763 /* ImageComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageComment.swift; path = EssentialFeedTests/ImageComment.swift; sourceTree = SOURCE_ROOT; };
+		C76264632680181B00D4E763 /* ImageCommentsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCommentsMapper.swift; path = API/ImageCommentsMapper.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -469,6 +471,7 @@
 		08346CF824F9435500A9F17C /* API */ = {
 			isa = PBXGroup;
 			children = (
+				C76264632680181B00D4E763 /* ImageCommentsMapper.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1051,6 +1054,7 @@
 				08C4E988233E13CC00D939F8 /* FeedImageDataStore.swift in Sources */,
 				087148B6232BEAAF00D6BE1A /* FeedPresenter.swift in Sources */,
 				0844769121FCBE7D00439BE9 /* URLSessionHTTPClient.swift in Sources */,
+				C76264642680181B00D4E763 /* ImageCommentsMapper.swift in Sources */,
 				08EF9D27250BBC1B004539C2 /* ResourceLoadingView.swift in Sources */,
 				08897BEF233A1C8E0029F5E4 /* HTTPURLResponse+StatusCode.swift in Sources */,
 				08285AFD228C1843000A8987 /* ManagedCache.swift in Sources */,

@@ -36,41 +36,6 @@ class ImageCommentsMapperTests: XCTestCase {
 		XCTAssertEqual(result, [])
 	}
 
-	class ImageCommentsMapper {
-		struct Root: Decodable {
-			let items: [RemoteImageComment]
-
-			struct RemoteImageComment: Decodable {
-				let id: UUID
-				let message: String
-				let created_at: Date
-				let author: Author
-			}
-
-			struct Author: Decodable {
-				let username: String
-			}
-
-			var comments: [ImageComment] {
-				return items.map { ImageComment(id: $0.id, message: $0.message, createdAt: $0.created_at, userName: $0.author.username) }
-			}
-		}
-
-		enum Error: Swift.Error {
-			case invalidData
-		}
-
-		static func map(_ data: Data, from response: HTTPURLResponse) throws -> [ImageComment] {
-			let decoder = JSONDecoder()
-			decoder.dateDecodingStrategy = .iso8601
-			guard (200 ... 299).contains(response.statusCode), let root = try? decoder.decode(Root.self, from: data) else {
-				throw Error.invalidData
-			}
-
-			return root.comments
-		}
-	}
-
 	func test_map_deliversItemsOn2XXHTTPResponseWithJSONItems() throws {
 		let item1 = makeItem(id: UUID(), message: "a message", createdAt: (date: Date(timeIntervalSince1970: 1622429594), iso8601String: "2021-05-31T02:53:14+00:00"), userName: "a user")
 
