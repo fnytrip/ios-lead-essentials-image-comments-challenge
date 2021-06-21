@@ -5,49 +5,10 @@
 import XCTest
 import EssentialFeed
 
-struct ImageCommentsViewModel: Equatable {
-	let comments: [ImageCommentViewModel]
-}
-
-struct ImageCommentViewModel: Equatable {
-	init(message: String, date: String, userName: String) {
-		self.message = message
-		self.date = date
-		self.userName = userName
-	}
-
-	let message: String
-	let date: String
-	let userName: String
-}
-
-class ImageCommentsPresenter {
-	static var title: String = {
-		NSLocalizedString(
-			"IMAGE_COMMENTS_VIEW_TITLE",
-			tableName: "ImageComments",
-			bundle: Bundle(for: ImageCommentsPresenter.self),
-			comment: "Title for the image comments view")
-	}()
-
-	static func map(_ imageComments: [ImageComment], currentDate: Date, calendar: Calendar, locale: Locale) -> ImageCommentsViewModel {
-		let formatter = RelativeDateTimeFormatter()
-		formatter.calendar = calendar
-		formatter.locale = locale
-
-		return ImageCommentsViewModel(comments: imageComments.map({
-			ImageCommentViewModel(
-				message: $0.message,
-				date: formatter.localizedString(for: $0.createdAt, relativeTo: currentDate),
-				userName: $0.userName)
-		}))
-	}
-}
-
 class ImageCommentsPresenterTests: XCTestCase {
-//	func test_title_isLocalized() {
-//		XCTAssertEqual(ImageCommentsPresenter.title, localized("IMAGE_COMMENTS_VIEW_TITLE"))
-//	}
+	func test_title_isLocalized() {
+		XCTAssertEqual(ImageCommentsPresenter.title, localized("IMAGE_COMMENTS_VIEW_TITLE"))
+	}
 
 	func test_map_createsViewModel() {
 		let now = Date()
