@@ -20,9 +20,12 @@ class ImageCommentsMapperTests: XCTestCase {
 	func test_map_throwsErrorOn200HTTPResponseWithInvalidJSON() {
 		let invalidJSON = Data("invalid json".utf8)
 
-		XCTAssertThrowsError(
-			try ImageCommentsMapper.map(invalidJSON, from: HTTPURLResponse(statusCode: 200))
-		)
+		do {
+			let _ = try ImageCommentsMapper.map(invalidJSON, from: HTTPURLResponse(statusCode: 200))
+		} catch {
+			let error = error as? ImageCommentsMapper.Error
+			XCTAssertEqual(error, .invalidData)
+		}
 	}
 
 	func test_map_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() throws {
@@ -53,11 +56,15 @@ class ImageCommentsMapperTests: XCTestCase {
 			}
 		}
 
+		enum Error: Swift.Error {
+			case invalidData
+		}
+
 		static func map(_ data: Data, from response: HTTPURLResponse) throws -> [ImageComment] {
 			let decoder = JSONDecoder()
 			decoder.dateDecodingStrategy = .iso8601
 			guard response.statusCode == 200, let root = try? decoder.decode(Root.self, from: data) else {
-				throw NSError(domain: "any domain", code: 0, userInfo: nil)
+				throw Error.invalidData
 			}
 
 			return root.comments
