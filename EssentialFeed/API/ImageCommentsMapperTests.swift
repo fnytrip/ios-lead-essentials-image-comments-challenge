@@ -85,20 +85,6 @@ class ImageCommentsMapperTests: XCTestCase {
 	}
 
 	// MARK: - Helpers
-	struct ImageComment: Hashable {
-		internal init(id: UUID, message: String, createdAt: Date, userName: String) {
-			self.id = id
-			self.message = message
-			self.createdAt = createdAt
-			self.userName = userName
-		}
-
-		public let id: UUID
-		public let message: String
-		public let createdAt: Date
-		public let userName: String
-	}
-
 	private func makeItem(id: UUID, message: String, createdAt: (date: Date, iso8601String: String), userName: String) -> (model: ImageComment, json: [String: Any]) {
 		let item = ImageComment(id: id, message: message, createdAt: createdAt.date, userName: userName)
 

@@ -102,6 +102,7 @@
 		08EFE6BD22D6384100DA417A /* FeedImageCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EFE6BC22D6384100DA417A /* FeedImageCellController.swift */; };
 		08F8822D236499B200CAEE16 /* FeedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F8822C236499B200CAEE16 /* FeedCache.swift */; };
 		C762645F2680002F00D4E763 /* ImageCommentsMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C762645E2680002F00D4E763 /* ImageCommentsMapperTests.swift */; };
+		C7626462268016D500D4E763 /* ImageComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7626461268016D500D4E763 /* ImageComment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -226,6 +227,7 @@
 		08F8822C236499B200CAEE16 /* FeedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCache.swift; sourceTree = "<group>"; };
 		08FC5AA922D5F47900148E12 /* FeedImageDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataLoader.swift; sourceTree = "<group>"; };
 		C762645E2680002F00D4E763 /* ImageCommentsMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCommentsMapperTests.swift; path = API/ImageCommentsMapperTests.swift; sourceTree = SOURCE_ROOT; };
+		C7626461268016D500D4E763 /* ImageComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageComment.swift; path = EssentialFeedTests/ImageComment.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,6 +436,7 @@
 		08346CF024F93EA300A9F17C /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				C7626461268016D500D4E763 /* ImageComment.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1043,6 +1046,7 @@
 				08C0880C21E4EED600ACFB30 /* HTTPClient.swift in Sources */,
 				080F9A372531DDC600EAD475 /* FeedEndpoint.swift in Sources */,
 				080EDF0C21B6DAE800813479 /* FeedImage.swift in Sources */,
+				C7626462268016D500D4E763 /* ImageComment.swift in Sources */,
 				0804862E236345A40087ED48 /* FeedImageDataCache.swift in Sources */,
 				08C4E988233E13CC00D939F8 /* FeedImageDataStore.swift in Sources */,
 				087148B6232BEAAF00D6BE1A /* FeedPresenter.swift in Sources */,
